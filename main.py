@@ -1,6 +1,8 @@
 import os
 from os import system
 
+import emoji as emoji
+
 from Personaje import Personaje
 import random
 nombresEnemigos = ["Wige",
@@ -32,7 +34,6 @@ tipos = []
 for tipo in clasesEnemigos.keys():
     tipos.append(tipo)
 tipoMousntro = random.choice(tipos)
-clase = random.choice(clasesEnemigos[tipoMousntro])
 
 tiposTecnica = []
 for tipo in tecnicas.keys():
@@ -58,90 +59,95 @@ m.setVida(m.VidaPersonaje(randomVidaMousntro, tipoMousntro))
 m.setEscudo(m.EscudoPersonaje(randomEscudoMousntro, tipoMousntro))
 m.setAtaque(m.AtaqueBase(tipoMousntro))
 m.setTecnicas(tecnicas.get(tipoMousntro))
-bucle = True
+
+
 tipoPersonaje = ""
 p1 = Personaje("", "", "", "", "", "", "", "")
-p1.nombre = input("Nombre de personaje: ")
+p1.setTecnicas(tecnicas.get(tipoMousntro))
+p1.setIniciativa(randomIniciativaPersonaje)
 
-print(""" -- ELIGE TU CLASE --
-    [1] Guerrero
-    [2] Paladin
-    [3] Mago
-    [4] Hechicero
-    [5] Explorador
-    [6] Batidor""")
-opcion = int(input("Opcion> "))
-while bucle:
-    if opcion == 1:
+# print(emoji.emojize("Python is fun :red_heart:", variant="emoji_type"))
+# p1.nombre = input("Nombre de personaje: ")
+#
+# print(""" -- ELIGE TU CLASE --
+#     [1] Guerrero
+#     [2] Paladin
+#     [3] Mago
+#     [4] Hechicero
+#     [5] Explorador
+#     [6] Batidor""")
+# opcion = int(input("Opcion> "))
+# bucle = True
+# while bucle:
+#     if opcion == 1:
+#         p1.setClase("Guerrero")
+#         tipoPersonaje = "Fisicos"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     elif opcion == 2:
+#         p1.setClase("Paladin")
+#         tipoPersonaje = "Fisicos"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     elif opcion == 3:
+#         p1.setClase("Mago")
+#         tipoPersonaje = "Magicos"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     elif opcion == 4:
+#         p1.setClase("Hechicero")
+#         tipoPersonaje = "Magicos"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     elif opcion == 5:
+#         p1.setClase("Explorador")
+#         tipoPersonaje = "Arqueros"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     elif opcion == 6:
+#         p1.setClase("Batidor")
+#         tipoPersonaje = "Arqueros"
+#         p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
+#         p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
+#         p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
+#         p1.setTecnicas(tecnicas.get(tipoMousntro))
+#         bucle = False
+#     else:
+#         print("Introduce un numero valido")
+#         opcion = int(input("Opcion> "))
+# print(""" -- ELIGE UNA RAZA --
+#     [1] Humano
+#     [2] Elfo
+#     [3] Enano""")
+# opcion = int(input("Opcion> "))
+# bucle = True
+# while bucle:
+#     if opcion == 1:
+#         p1.raza = "Humano"
+#         bucle = False
+#     elif opcion == 2:
+#         p1.raza = "Elfo"
+#         bucle = False
+#     elif opcion == 3:
+#         p1.raza = "Enano"
+#         bucle = False
+#     else:
+#         print("Introduce un numero valido")
+#         opcion = int(input("Opcion> "))
 
-        p1.setClase("Guerrero")
-        tipoPersonaje = "Fisicos"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    elif opcion == 2:
-        p1.clase = "Paladin"
-        tipoPersonaje = "Fisicos"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    elif opcion == 3:
-        p1.clase = "Mago"
-        tipoPersonaje = "Magicos"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    elif opcion == 4:
-        p1.clase = "Hechicero"
-        tipoPersonaje = "Magicos"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    elif opcion == 5:
-        p1.clase = "Explorador"
-        tipoPersonaje = "Arqueros"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    elif opcion == 6:
-        p1.clase = "Batidor"
-        tipoPersonaje = "Arqueros"
-        p1.setAtaque(p1.AtaqueBase(tipoPersonaje))
-        p1.setVida(p1.VidaPersonaje(randomVidaPersonaje, tipoPersonaje))
-        p1.setEscudo(p1.EscudoPersonaje(randomEscudoPersonaje, tipoPersonaje))
-        p1.setIniciativa(randomIniciativaPersonaje)
-        bucle = False
-    else:
-        print("Introduce un numero valido")
-        opcion = int(input("Opcion> "))
-print(""" -- ELIGE UNA RAZA --
-    [1] Humano
-    [2] Elfo
-    [3] Enano""")
-opcion = int(input("Opcion> "))
-bucle = True
-while bucle:
-    if opcion == 1:
-        p1.raza = "Humano"
-        bucle = False
-    elif opcion == 2:
-        p1.raza = "Elfo"
-        bucle = False
-    elif opcion == 3:
-        p1.raza = "Enano"
-        bucle = False
-    else:
-        print("Introduce un numero valido")
-        opcion = int(input("Opcion> "))
-
-p1.DatosPersonaje()
+# p1.DatosPersonaje()

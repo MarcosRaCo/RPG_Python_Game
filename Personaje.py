@@ -51,7 +51,6 @@ class Personaje:
     def setEscudo(self, escudo):
         self.escudo = escudo
 
-
     def getEscudo(self):
         return self.escudo
 
@@ -69,6 +68,8 @@ class Personaje:
 
     def setTecnicas(self, tecnicas):
         self.tecnicas = tecnicas
+    def getTecnicas(self):
+        return self.tecnicas
 
     def AtaqueBase(self, tipo):
         ataquePorDefecto = 1
