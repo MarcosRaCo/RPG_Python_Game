@@ -37,19 +37,19 @@ tipoTecMonster = random.choice(tiposTecnica)
 tecnicaMonster = random.choice(tecnicas[tipoTecMonster])
 
 #Randoms Personaje
-randomVidaPersonaje = random.choice(range(30, 50))
-randomEscudoPersonaje = random.choice(range(1, 2))
+randomVidaPersonaje = random.choice(range(15, 21))
+randomEscudoPersonaje = random.choice(range(10, 16))
 randomIniciativaPersonaje = random.choice(range(1, 5))
 
 #Randoms Monster
 nombreMousntro = random.choice(nombresEnemigos)
 razaMousntro = random.choice(razasEnemigos)
 clase = random.choice(clasesEnemigos[tipoMousntro])
-randomVidaMousntro = random.choice(range(15, 20))
-randomEscudoMousntro = random.choice(range(1, 2))
+randomVidaMousntro = random.choice(range(15, 21))
+randomEscudoMousntro = random.choice(range(1, 16))
 randomIniciativaMonster = random.choice(range(1, 5))
 
-m = Personaje(nombreMousntro, razaMousntro, clase, 0, 0, 0, randomIniciativaMonster, "", 0)
+m = Personaje(nombreMousntro, razaMousntro, clase, 0, 0, 0, randomIniciativaMonster, "")
 m.setVida(m.VidaPersonaje(randomVidaMousntro, tipoMousntro))
 m.setEscudo(m.EscudoPersonaje(randomEscudoMousntro, tipoMousntro))
 m.setAtaque(m.AtaqueBase(tipoMousntro))
@@ -57,7 +57,7 @@ m.setTecnicas(tecnicas.get(tipoMousntro))
 
 
 tipoPersonaje = ""
-p1 = Personaje("", "", "", 0, 0, 0, 0, "", 0)
+p1 = Personaje("", "", "", 0, 0, 0, 0, "")
 p1.setTecnicas(tecnicas.get(tipoMousntro))
 p1.setIniciativa(randomIniciativaPersonaje)
 
@@ -146,6 +146,6 @@ while bucle:
 
 p1.setVidaActual()
 m.setVidaActual()
-#p1.DatosPersonaje()
+
 
 p1.lucha(m)

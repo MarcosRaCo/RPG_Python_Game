@@ -9,7 +9,7 @@ def imprimir_con_retraso(s):
         sys.stdout.flush()
         time.sleep(0.05)
 class Personaje:
-    def __init__(self, nombre, raza, clase, vida, escudo, ataque, iniciativa, tecnicas, daño):
+    def __init__(self, nombre, raza, clase, vida, escudo, ataque, iniciativa, tecnicas):
         self.nombre = nombre
         self.raza = raza
         self.clase = clase
@@ -19,7 +19,6 @@ class Personaje:
         self.iniciativa = iniciativa
         self.vidaActual = vida
         self.tecnicas = tecnicas
-        self.daño = daño
         self.magico = "Magicos"
         self.fisico = "Fisicos"
         self.curandero = "Curanderos"
@@ -77,23 +76,7 @@ class Personaje:
         self.tecnicas = tecnicas
     def getTecnicas(self):
         return self.tecnicas
-
-    def setDaño(self, daño):
-        self.daño = daño
-
-    def getDaño(self):
-        return self.daño
-
-    def impresa(self, monster):
-        print("----A PELEAR----")
-        print(f"\n{self.nombre}")
-        print("RAZA:", self.raza)
-        print("CLASE:", self.clase)
-        print("\nVS")
-        print(f"\n{monster.nombre}")
-        print("RAZA:", monster.raza)
-        print("CLASE:", monster.clase)
-        time.sleep(2)
+        return self.tecnicas
 
     def AtaqueBase(self, tipo):
         ataquePorDefecto = 1
@@ -107,7 +90,6 @@ class Personaje:
             return ataquePorDefecto + 2
         else:
             return "Error ataque"
-
 
     def VidaPersonaje(self, vida, tipo):
         if tipo == self.magico:
@@ -185,41 +167,46 @@ class Personaje:
             imprimir_con_retraso(f"\nQue suerte, el mounstruo no te ha podido pegar")
             time.sleep(3)
             print("\n")
-    def ApareceMousntro(self,nombre, raza, clase):
-        print("¡" + nombre, "el", raza, "quiere pelear!")
-        print("¡Vaya parece un", clase + "!")
-        print("¡Prepara tus armas", self.nombre + " que se avecina el combate!")
 
-    # def SetNombrePersonaje(self, nombre):
-    #    self.nombre = nombre
+    def ApareceMousntro(self, monster):
+        print("\n \n")
+        time.sleep(2.5)
+        imprimir_con_retraso(f"¡{monster.nombre}, el, {monster.raza}, quiere pelear!\n")
+        time.sleep(1)
+        imprimir_con_retraso(f"¡Vaya parece un {monster.clase}!\n")
+        time.sleep(1)
+        imprimir_con_retraso(f"¡Prepara tus armas {self.nombre} que se avecina el combate!\n")
 
     def DatosPersonaje(self):
-        print('--- FICHA DE TU PERSONAJE ---','\n'
-            'NOMBRE:', self.nombre,'\n'
-            'RAZA:', self.raza,'\n'
-            'CLASE:', self.clase,'\n'
-            'VIDA:', self.vida,'\n'
-            'ESCUDO:', self.escudo,'\n'
-            'ATAQUE BASE:', self.ataque,'\n'
-            'INICIATIVA: ', self.iniciativa)
+
+        print("---FICHA DE TU PERSONAJE---")
+        imprimir_con_retraso(f"NOMBRE:  {self.nombre}\n"
+                             f"CLASE:  {self.clase}\n"
+                             f"RAZA:  {self.raza}\n"
+                             f"VIDA:  {self.vida}\n"
+                             f"ESCUDO:  {self.escudo}\n"
+                             f"ATAQUE BASE:  {self.ataque}\n"
+                             f"INICIATIVA:  {self.escudo}\n"
+                             )
 
     def turno(self, monster):
 
         while self.vidaActual > 0:
-            print("VIDA MONSTER:",monster.vidaActual)
-            corazones = emoji.emojize(":red_heart:",variant="emoji_type") * self.vidaActual
 
-            print(f"\n{self.nombre} VIDA: {self.vidaActual} \n {corazones}")
+            corazones = emoji.emojize(":red_heart:", variant="emoji_type") * self.vidaActual
+
+            imprimir_con_retraso(f"\n{self.nombre} VIDA: {self.vidaActual}\n{corazones}\n")
 
             # Jugador
-            print(f"Es hora de pelear {self.nombre}")
+            print(f"¡Es hora de pelear {self.nombre}!")
             for i, x in enumerate(self.tecnicas):
-                print(f"{i + 1}.", x)
-            index = int(input('Como quieres atacar: '))
-            print(index)
+                time.sleep(0.5)
+                imprimir_con_retraso(f"{i + 1}. {x}\n")
+            index = int(input("Como quieres atacar: "))
+
             imprimir_con_retraso(f"\n¡{self.nombre} usó {self.tecnicas[index - 1]}!")
             time.sleep(1)
-            self.DañoGolpeJugador(monster,index)
+            self.DañoGolpeJugador(monster, index)
             # Saber daño
             # entraDaño = random.choice(range(1, 21)) + self.ataque
             # dado6 = random.choice(range(1, 7))
@@ -265,5 +252,6 @@ class Personaje:
                 break
 
     def lucha(self, monster):
-        self.impresa(monster)
+        self.DatosPersonaje()
+        self.ApareceMousntro(monster)
         self.turno(monster)
