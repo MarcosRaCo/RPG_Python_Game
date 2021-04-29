@@ -1,3 +1,4 @@
+import os
 import random
 import sys
 import time
@@ -115,19 +116,59 @@ class Personaje:
         else:
             return "Error escudo"
 
-    def DañoGolpeJugador(self, monster, index):
+    def DatosPersonaje(self):
 
+        print("---FICHA DE TU PERSONAJE---")
+        imprimir_con_retraso(f"NOMBRE:  {self.nombre}\n"
+                             f"CLASE:  {self.clase}\n"
+                             f"RAZA:  {self.raza}\n"
+                             f"VIDA:  {self.vida}\n"
+                             f"ESCUDO:  {self.escudo}\n"
+                             f"ATAQUE BASE:  {self.ataque}\n"
+                             f"INICIATIVA:  {self.iniciativa}\n"
+                             )
+    def ApareceMousntro(self, monster):
+        print("\n \n")
+        time.sleep(2.5)
+        imprimir_con_retraso(f"¡{monster.nombre}, el {monster.raza}, quiere pelear!\n")
+        time.sleep(1)
+        imprimir_con_retraso(f"¡Vaya parece un {monster.clase}!\n")
+        time.sleep(1)
+        imprimir_con_retraso(f"¡Prepara tus armas {self.nombre} que se avecina el combate!\n")
+
+    def Corazones(self):
+        corazones = emoji.emojize(":red_heart:", variant="emoji_type") * self.vidaActual
+        imprimir_con_retraso(f"\n{self.nombre} VIDA: {self.vidaActual}\n{corazones}\n")
+
+    def DadoPrioridadAccion(self):
+        dj = random.choice(range(1, 21))
+        dm = random.choice(range(1, 21))
+
+        while dj == dm:
+            dj = random.choice(range(1, 21))
+            dm = random.choice(range(1, 21))
+        return dj, dm
+
+    def DañoGolpeJugador(self, monster):
+        print(f"¡Es tu turno {self.nombre}!")
+        for i, x in enumerate(self.tecnicas):
+            time.sleep(0.5)
+            imprimir_con_retraso(f"{i + 1}. {x}\n")
+        index = int(input("Como quieres atacar: "))
+
+        imprimir_con_retraso(f"\n¡{self.nombre} usó {self.tecnicas[index - 1]}!")
+        time.sleep(1)
         entraDaño = random.choice(range(1, 21)) + self.ataque
+        dado4 = random.choice(range(1, 5))
         dado6 = random.choice(range(1, 7))
         dado8 = random.choice(range(1, 9))
-        dado10 = random.choice(range(1, 11))
         if entraDaño > monster.escudo:
             if index == 1:
-                daño = monster.ataque + dado10
+                daño = self.ataque + dado8
             if index == 2:
-                daño = monster.ataque + dado8
+                daño = self.ataque + dado6
             if index == 3:
-                daño = monster.ataque + dado6
+                daño = self.ataque + dado4
             # Saber cuanto le has quitado
             monster.vidaActual -= daño
             imprimir_con_retraso(f"\nHas sacado {entraDaño}")
@@ -140,23 +181,28 @@ class Personaje:
             print("\n")
 
     def DañoGolpeMonster(self, monster):
-
+        print("\n")
+        imprimir_con_retraso(f"Es turno de {monster.nombre}")
+        time.sleep(2)
         entraDaño = random.choice(range(1, 21)) + monster.ataque
+
         if entraDaño > self.escudo:
+
+            dado4Monster = random.choice(range(1, 11))
             dado6Monster = random.choice(range(1, 7))
-            dado8Monster =  random.choice(range(1, 9))
-            dado10Monster =  random.choice(range(1, 11))
+            dado8Monster = random.choice(range(1, 9))
             ataquealeatorio = random.choice(monster.tecnicas)
             indiceTecnicaM = monster.tecnicas.index(ataquealeatorio) + 1
             daño = 0
+
             if indiceTecnicaM == 1:
-                daño = monster.ataque + dado10Monster
+                daño = monster.ataque + dado4Monster
 
             if indiceTecnicaM == 2:
-                daño = monster.ataque + dado8Monster
+                daño = monster.ataque + dado6Monster
 
             if indiceTecnicaM == 3:
-                daño = monster.ataque + dado6Monster
+                daño = monster.ataque + dado8Monster
             imprimir_con_retraso(f"\n¡{monster.nombre} usó {ataquealeatorio}!")
             # Saber cuanto le has quitado
             self.vidaActual -= daño
@@ -168,88 +214,35 @@ class Personaje:
             time.sleep(3)
             print("\n")
 
-    def ApareceMousntro(self, monster):
-        print("\n \n")
-        time.sleep(2.5)
-        imprimir_con_retraso(f"¡{monster.nombre}, el, {monster.raza}, quiere pelear!\n")
-        time.sleep(1)
-        imprimir_con_retraso(f"¡Vaya parece un {monster.clase}!\n")
-        time.sleep(1)
-        imprimir_con_retraso(f"¡Prepara tus armas {self.nombre} que se avecina el combate!\n")
-
-    def DatosPersonaje(self):
-
-        print("---FICHA DE TU PERSONAJE---")
-        imprimir_con_retraso(f"NOMBRE:  {self.nombre}\n"
-                             f"CLASE:  {self.clase}\n"
-                             f"RAZA:  {self.raza}\n"
-                             f"VIDA:  {self.vida}\n"
-                             f"ESCUDO:  {self.escudo}\n"
-                             f"ATAQUE BASE:  {self.ataque}\n"
-                             f"INICIATIVA:  {self.escudo}\n"
-                             )
-
     def turno(self, monster):
 
         while self.vidaActual > 0:
-
-            corazones = emoji.emojize(":red_heart:", variant="emoji_type") * self.vidaActual
-
-            imprimir_con_retraso(f"\n{self.nombre} VIDA: {self.vidaActual}\n{corazones}\n")
-
-            # Jugador
-            print(f"¡Es hora de pelear {self.nombre}!")
-            for i, x in enumerate(self.tecnicas):
-                time.sleep(0.5)
-                imprimir_con_retraso(f"{i + 1}. {x}\n")
-            index = int(input("Como quieres atacar: "))
-
-            imprimir_con_retraso(f"\n¡{self.nombre} usó {self.tecnicas[index - 1]}!")
-            time.sleep(1)
-            self.DañoGolpeJugador(monster, index)
-            # Saber daño
-            # entraDaño = random.choice(range(1, 21)) + self.ataque
-            # dado6 = random.choice(range(1, 7))
-            # dado8 = random.choice(range(1, 9))
-            # dado10 = random.choice(range(1, 11))
-            # if entraDaño > monster.escudo:
-            #     if index == 1:
-            #         daño = monster.ataque + dado10
-            #         print(daño)
-            #         print("dado", dado10)
-            #     if index == 2:
-            #         daño = monster.ataque + dado8
-            #         print(daño)
-            #         print("dado", dado8)
-            #     if index == 3:
-            #         print(monster.ataque)
-            #         daño = monster.ataque + dado6
-            #         print(daño)
-            #         print("dado", dado6)
-            #     # Saber cuanto le has quitado
-            #     monster.vidaActual -= self.ataque
-            #     imprimir_con_retraso(f"\nBuen golpe, le has quitado {self.ataque} de daño")
-            #     time.sleep(1)
-            #     print("\n")
-            # else:
-            #     imprimir_con_retraso(f"\nLo siento has sacado {entraDaño} no es suficiente para entrarle al monstruo")
-            #     time.sleep(3)
-            #     print("\n")
-
-            # Monstruo muere
-            if monster.vidaActual <= 0:
-                imprimir_con_retraso("\n Eres todo un campeón " + monster.nombre + ' ha muerto.')
-                break
-
-            # Monstruo
-            print("\n")
-            imprimir_con_retraso(f"Es turno de {monster.nombre}")
-            time.sleep(2)
-            self.DañoGolpeMonster(monster)
-            # Monstruo muere
+            self.Corazones()
+            # Personaje muere
             if self.vidaActual <= 0:
                 imprimir_con_retraso("\nGame over " + self.nombre + ' ha muerto.')
                 break
+            # Monster muere
+            if monster.vidaActual <= 0:
+                os.system("cls")
+                imprimir_con_retraso("\n Eres todo un campeón " + monster.nombre + ' ha muerto.')
+                break
+            # Iniciativas pegas antes
+            if self.iniciativa == monster.iniciativa:
+                if self.DadoPrioridadAccion()[0] > self.DadoPrioridadAccion()[1]:
+                    self.DañoGolpeJugador(monster)
+                    self.DañoGolpeMonster(monster)
+                else:
+                    self.DañoGolpeMonster(monster)
+                    self.DañoGolpeJugador(monster)
+            # Jugador pega antes
+            if self.iniciativa > monster.iniciativa:
+                self.DañoGolpeJugador(monster)
+                self.DañoGolpeMonster(monster)
+            # Monster pega antes
+            else:
+                self.DañoGolpeMonster(monster)
+                self.DañoGolpeJugador(monster)
 
     def lucha(self, monster):
         self.DatosPersonaje()

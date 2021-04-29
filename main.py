@@ -45,10 +45,11 @@ randomIniciativaPersonaje = random.choice(range(1, 5))
 nombreMousntro = random.choice(nombresEnemigos)
 razaMousntro = random.choice(razasEnemigos)
 clase = random.choice(clasesEnemigos[tipoMousntro])
-randomVidaMousntro = random.choice(range(15, 21))
-randomEscudoMousntro = random.choice(range(1, 16))
+randomVidaMousntro = random.choice(range(10, 21))
+randomEscudoMousntro = random.choice(range(10, 16))
 randomIniciativaMonster = random.choice(range(1, 5))
 
+# Creacion objeto Monster
 m = Personaje(nombreMousntro, razaMousntro, clase, 0, 0, 0, randomIniciativaMonster, "")
 m.setVida(m.VidaPersonaje(randomVidaMousntro, tipoMousntro))
 m.setEscudo(m.EscudoPersonaje(randomEscudoMousntro, tipoMousntro))
@@ -56,6 +57,7 @@ m.setAtaque(m.AtaqueBase(tipoMousntro))
 m.setTecnicas(tecnicas.get(tipoMousntro))
 
 
+# Creacion de objeto Personaje
 tipoPersonaje = ""
 p1 = Personaje("", "", "", 0, 0, 0, 0, "")
 p1.setTecnicas(tecnicas.get(tipoMousntro))
@@ -144,8 +146,7 @@ while bucle:
         print("Introduce un numero valido")
         opcion = int(input("Opcion> "))
 
-p1.setVidaActual()
 m.setVidaActual()
-
-
+p1.setVidaActual()
 p1.lucha(m)
+
