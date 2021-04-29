@@ -150,6 +150,7 @@ class Personaje:
         return dj, dm
 
     def DañoGolpeJugador(self, monster):
+        self.Corazones()
         print(f"¡Es tu turno {self.nombre}!")
         for i, x in enumerate(self.tecnicas):
             time.sleep(0.5)
@@ -172,7 +173,7 @@ class Personaje:
             # Saber cuanto le has quitado
             monster.vidaActual -= daño
             imprimir_con_retraso(f"\nHas sacado {entraDaño}")
-            imprimir_con_retraso(f"\nBuen golpe, le has quitado {daño} de daño")
+            imprimir_con_retraso(f"\nBuen golpe, le has quitado {daño} de vida")
             time.sleep(1)
             print("\n")
         else:
@@ -206,6 +207,7 @@ class Personaje:
             imprimir_con_retraso(f"\n¡{monster.nombre} usó {ataquealeatorio}!")
             # Saber cuanto le has quitado
             self.vidaActual -= daño
+
             imprimir_con_retraso(f"\nTe ha dado un buen golpe, te ha quitado {daño} de vida")
             time.sleep(1)
             print("\n")
@@ -215,35 +217,33 @@ class Personaje:
             print("\n")
 
     def turno(self, monster):
-
-        while self.vidaActual > 0:
-            self.Corazones()
-            # Personaje muere
-            if self.vidaActual <= 0:
-                imprimir_con_retraso("\nGame over " + self.nombre + ' ha muerto.')
-                break
-            # Monster muere
-            if monster.vidaActual <= 0:
-                os.system("cls")
-                imprimir_con_retraso("\n Eres todo un campeón " + monster.nombre + ' ha muerto.')
-                break
-            # Iniciativas pegas antes
-            if self.iniciativa == monster.iniciativa:
-                if self.DadoPrioridadAccion()[0] > self.DadoPrioridadAccion()[1]:
+        iniciativaP = self.iniciativa
+        iniciativaM = monster.iniciativa
+        while self.vidaActual >= 0:
+            if self.iniciativa != monster.iniciativa:
+                if self.iniciativa > monster.iniciativa:
                     self.DañoGolpeJugador(monster)
-                    self.DañoGolpeMonster(monster)
+                    # Monster muere
+                    if monster.vidaActual <= 0:
+                        os.system("cls")
+                        imprimir_con_retraso("\n Eres todo un campeón " + monster.nombre + ' ha muerto.')
+                        break
+                    else:
+                        self.DañoGolpeMonster(monster)
                 else:
                     self.DañoGolpeMonster(monster)
-                    self.DañoGolpeJugador(monster)
-            # Jugador pega antes
-            if self.iniciativa > monster.iniciativa:
-                self.DañoGolpeJugador(monster)
-                self.DañoGolpeMonster(monster)
-            # Monster pega antes
+                    if self.vidaActual <= 0:
+                        imprimir_con_retraso("\nGame over " + self.nombre + ' has muerto.')
+                    else:
+                        self.DañoGolpeJugador(monster)
             else:
-                self.DañoGolpeMonster(monster)
-                self.DañoGolpeJugador(monster)
-
+                x = random.choice(range(2))
+                if x == 0:
+                    self.iniciativa += 1
+                else:
+                    monster.iniciativa += 1
+        monster.iniciativa = iniciativaM
+        self.iniciativa = iniciativaP
     def lucha(self, monster):
         self.DatosPersonaje()
         self.ApareceMousntro(monster)

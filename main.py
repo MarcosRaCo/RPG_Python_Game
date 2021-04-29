@@ -37,18 +37,18 @@ tipoTecMonster = random.choice(tiposTecnica)
 tecnicaMonster = random.choice(tecnicas[tipoTecMonster])
 
 #Randoms Personaje
-randomVidaPersonaje = random.choice(range(15, 21))
+randomVidaPersonaje = random.choice(range(1, 2))
 randomEscudoPersonaje = random.choice(range(10, 16))
-randomIniciativaPersonaje = random.choice(range(1, 5))
-
+#randomIniciativaPersonaje = random.choice(range(3, 5))
+randomIniciativaPersonaje = 1
 #Randoms Monster
 nombreMousntro = random.choice(nombresEnemigos)
 razaMousntro = random.choice(razasEnemigos)
 clase = random.choice(clasesEnemigos[tipoMousntro])
-randomVidaMousntro = random.choice(range(10, 21))
-randomEscudoMousntro = random.choice(range(10, 16))
-randomIniciativaMonster = random.choice(range(1, 5))
-
+randomVidaMousntro = random.choice(range(1, 2))
+randomEscudoMousntro = random.choice(range(1, 2))
+#randomIniciativaMonster = random.choice(range(1, 2))
+randomIniciativaMonster = 1
 # Creacion objeto Monster
 m = Personaje(nombreMousntro, razaMousntro, clase, 0, 0, 0, randomIniciativaMonster, "")
 m.setVida(m.VidaPersonaje(randomVidaMousntro, tipoMousntro))
